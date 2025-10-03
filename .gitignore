@@ -30,3 +30,8 @@ build/
 # --------------------
 # Ignore temporary Docker files
 .dockerignore
+
+# --------------------
+# Environment
+# --------------------
+.env
