@@ -1,0 +1,32 @@
+# --------------------
+# General OS/Editors
+# --------------------
+.DS_Store
+*.swp
+*~
+
+# --------------------
+# Python/Poetry
+# --------------------
+# Virtual environments
+.venv/
+venv/
+__pypackages__/
+
+# Bytecode and runtime files
+__pycache__/
+*.pyc
+
+# Distribution/packaging
+dist/
+build/
+*.egg-info/
+
+# Configuration files
+.python-version # Since you asked about it, safe to ignore
+
+# --------------------
+# Docker
+# --------------------
+# Ignore temporary Docker files
+.dockerignore
