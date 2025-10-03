@@ -1,8 +1,7 @@
 # Stage 1: The Builder Stage
 FROM python:3.11-slim AS builder
 
-# 🛑 CRITICAL FIX: Install system dependencies needed for building asyncpg (libpq-dev) 
-# and the C compiler (build-essential)
+# Install system dependencies needed for building asyncpg (libpq-dev)
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
@@ -20,10 +19,9 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 RUN touch README.md
 
-# This step will now succeed because the necessary C tools are available
 RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root
 
-# Stage 2: The Runtime Stage (This part is now correct)
+# Stage 2: The Runtime Stage
 FROM python:3.11-slim AS runtime
 
 ENV VIRTUAL_ENV=/app/.venv \
@@ -33,5 +31,4 @@ COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 COPY . .
 
-# This command is correct and will now find uvicorn
 CMD ["/app/.venv/bin/uvicorn", "jlpt_cracker.main:app", "--host", "0.0.0.0", "--port", "8000"]
